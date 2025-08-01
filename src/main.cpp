@@ -66,9 +66,8 @@ int main() {
     // Mostrar procesos cargados
     cargador.mostrarProcesos();
     
-    // Aquí esta la lógica del simulador en las próximas semanas
 
-    // REEMPLAZA TODO EL CÓDIGO DE SIMULACIÓN CON ESTE CÓDIGO CORREGIDO:
+
 
     // Inicializar simulación
     auto& procesos = cargador.getProcesos();
