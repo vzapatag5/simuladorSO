@@ -1,0 +1,18 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build & Run Simulador",
+      "type": "shell",
+      "command": "g++ -Wall -Wextra -g src/main.cpp src/proceso.cpp src/cargador.cpp -o src/simulador && ./src/simulador",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "reveal": "always"
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Archivo de ejemplo de procesos
+PID: 1, AX=2, BX=3, CX=1, Quantum=3
+PID: 2, AX=5, BX=1, CX=4, Quantum=3
+PID: 3, AX=1, BX=2, CX=3, Quantum=3
