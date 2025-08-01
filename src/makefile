@@ -1,4 +1,4 @@
-# Makefile para Simulador de Procesos
+Makefile para Simulador de Procesos
 
 # Compilador y flags
 CXX = g++

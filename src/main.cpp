@@ -40,15 +40,14 @@ int main() {
     // Mostrar procesos cargados
     cargador.mostrarProcesos();
     
-    // Aquí irá la lógica del simulador en las próximas semanas
-    // REEMPLAZA la línea: std::cout << "\n[SIMULACIÓN - Por implementar en próximas semanas]" << std::endl;
-// CON TODO ESTE CÓDIGO:
+    // Aquí esta la lógica del simulador en las próximas semanas
+
+    // REEMPLAZA TODO EL CÓDIGO DE SIMULACIÓN CON ESTE CÓDIGO CORREGIDO:
 
     // Inicializar simulación
     auto& procesos = cargador.getProcesos();
     int tiempo = 0;
     int procesoActual = 0;
-    int quantumRestante = 0;
     
     std::cout << "\n=== INICIANDO SIMULACIÓN (Round Robin) ===" << std::endl;
     
@@ -72,7 +71,7 @@ int main() {
         bool procesoEncontrado = false;
         int intentos = 0;
         
-        while (!procesoEncontrado && intentos < procesos.size()) {
+        while (!procesoEncontrado && intentos < (int)procesos.size()) {
             if (strcmp(procesos[procesoActual].estado, "Listo") == 0) {
                 procesoEncontrado = true;
             } else {
@@ -86,48 +85,47 @@ int main() {
             break;
         }
         
-        // Inicializar quantum si es necesario
-        if (quantumRestante <= 0) {
-            quantumRestante = procesos[procesoActual].quantum;
-            cambiarEstado(&procesos[procesoActual], "Ejecutando");
+        // Cambiar estado a ejecutando
+        cambiarEstado(&procesos[procesoActual], "Ejecutando");
+        std::cout << "\n--- Proceso PID " << procesos[procesoActual].pid << " inicia ejecución ---" << std::endl;
+        
+        // Ejecutar el proceso por su quantum completo
+        int quantumRestante = procesos[procesoActual].quantum;
+        
+        while (quantumRestante > 0 && strcmp(procesos[procesoActual].estado, "Ejecutando") == 0) {
+            // Ejecutar 1 ciclo
+            std::cout << "Tiempo " << tiempo << ": Ejecutando proceso PID " 
+                      << procesos[procesoActual].pid << " (PC=" << procesos[procesoActual].pc 
+                      << ", Quantum restante: " << quantumRestante << ")" << std::endl;
+            
+            // Simular ejecución (incrementar PC)
+            procesos[procesoActual].pc++;
+            quantumRestante--;
+            tiempo++;
+            
+            // Verificar si el proceso terminó (cuando PC >= CX)
+            if (procesos[procesoActual].pc >= procesos[procesoActual].cx) {
+                cambiarEstado(&procesos[procesoActual], "Terminado");
+                std::cout << "  -> Proceso PID " << procesos[procesoActual].pid 
+                          << " TERMINADO (PC=" << procesos[procesoActual].pc << ")" << std::endl;
+                break;
+            }
         }
         
-        // Ejecutar proceso por 1 unidad de tiempo
-        std::cout << "Tiempo " << tiempo << ": Ejecutando proceso PID " 
-                  << procesos[procesoActual].pid << " (Quantum restante: " 
-                  << quantumRestante << ")" << std::endl;
-        
-        // Simular ejecución (incrementar PC)
-        procesos[procesoActual].pc++;
-        quantumRestante--;
-        tiempo++;
-        
-        // Verificar si el proceso terminó (ejemplo: cuando PC >= CX)
-        if (procesos[procesoActual].pc >= procesos[procesoActual].cx) {
-            cambiarEstado(&procesos[procesoActual], "Terminado");
-            std::cout << "  -> Proceso PID " << procesos[procesoActual].pid 
-                      << " TERMINADO" << std::endl;
-            quantumRestante = 0;
-            procesoActual = (procesoActual + 1) % procesos.size();
-        }
-        // Verificar si se agotó el quantum
-        else if (quantumRestante <= 0) {
+        // Si el proceso no terminó pero se agotó el quantum
+        if (strcmp(procesos[procesoActual].estado, "Ejecutando") == 0) {
             cambiarEstado(&procesos[procesoActual], "Listo");
-            std::cout << "  -> Quantum agotado, proceso vuelve a cola" << std::endl;
-            procesoActual = (procesoActual + 1) % procesos.size();
+            std::cout << "  -> Quantum agotado, proceso PID " << procesos[procesoActual].pid 
+                      << " vuelve a cola (PC=" << procesos[procesoActual].pc << ")" << std::endl;
         }
         
-        // Pausa opcional para ver la simulación paso a paso
-        // std::cin.get(); // Descomenta esta línea si quieres pausa manual
+        // Cambiar al siguiente proceso
+        procesoActual = (procesoActual + 1) % procesos.size();
     }
     
     // Mostrar estado final
     std::cout << "\n=== ESTADO FINAL ===" << std::endl;
     cargador.mostrarProcesos();
-    
-    return 0;
-}
-
 
 
 
@@ -137,5 +135,4 @@ cd ~/simulador-procesos/src
 g++ -Wall -Wextra -g main.cpp proceso.cpp cargador.cpp -o simulador
 ./simulador       */
 
-
-/*mejorar makefile, cambiar quantum siempre todo igual = 3, que dependen de mi rafaga de cpu que eso lo debo preguntar*/
+/*mejorar makefile, cambiar quantum en mi .txt siempre todo igual = 3, ¿tiene que ser igual siempre en todos los procesos?, pero eso dizque que dependen de mi rafaga de cpu que eso lo debo preguntar*/
