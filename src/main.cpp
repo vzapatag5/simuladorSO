@@ -1,7 +1,8 @@
 #include "proceso.h"
-#include "cargador.cpp" // Incluir temporalmente hasta separar en headers
+#include "cargador.h" 
 #include <iostream>
 #include <cstring>  // Para strcmp
+
 
 int main() {
     std::cout << "=== SIMULADOR DE PROCESOS ===" << std::endl;
