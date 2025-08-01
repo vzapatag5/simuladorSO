@@ -126,6 +126,7 @@ int main() {
     // Mostrar estado final
     std::cout << "\n=== ESTADO FINAL ===" << std::endl;
     cargador.mostrarProcesos();
+}
 
 
 
