@@ -41,7 +41,7 @@ int main() {
     // Mostrar procesos cargados
     cargador.mostrarProcesos();
     
-    
+
 
     // Inicializar simulación
     auto& procesos = cargador.getProcesos();
@@ -135,4 +135,15 @@ cd ~/simulador-procesos/src
 g++ -Wall -Wextra -g main.cpp proceso.cpp cargador.cpp -o simulador
 ./simulador       */
 
-/*mejorar makefile, cambiar quantum en mi .txt siempre todo igual = 3, ¿tiene que ser igual siempre en todos los procesos?, pero eso dizque que dependen de mi rafaga de cpu que eso lo debo preguntar*/
+/*mejorar makefile, cambiar quantum en mi .txt siempre todo igual = 3, ¿tiene que ser igual siempre en todos los procesos?, pero eso dizque que dependen de mi rafaga de cpu que eso lo debo preguntar
+
+
+-hacer colas dentro del vector para manejo de los procesos y lo del round robin y asi
+-no tengo las instrucciones tipo ensamblador ADD, INC, JUMP, ETC.. 
+-separar los procesos en diferentes archivos, p1.txt, p2.txt, p3.txt, etc.. y que el cargador los lea todos
+-no hay ningun problema con el cargador.cpp y el cargador.h, ya que el cargador.cpp es la implementacion de la clase cargador.h Y ES ALGO QUE ESTA BIEN
+-agregar lo del cambio de contexto, despues de que el quantum se agote
+-guiarme muy bien de lo que me mostro el profesor en la guia
+- cuando el proceso termina, se verifica que se elimine de la cola 
+- cambio de contexto, proceso 2 pasa de listo a ejecutando hasta que se termine.
+*/
