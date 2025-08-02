@@ -66,9 +66,6 @@ int main() {
     // Mostrar procesos cargados
     cargador.mostrarProcesos();
     
-
-
-
     // Inicializar simulación
     auto& procesos = cargador.getProcesos();
     int tiempo = 0;
