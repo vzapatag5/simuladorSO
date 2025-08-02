@@ -1,7 +1,32 @@
+
+
+/**
+ * @file main.cpp
+ * @brief Simulador de procesos con planificación Round Robin.
+ *
+ * Este archivo contiene la función principal del simulador de procesos. Permite cargar procesos
+ * desde un archivo .txt o manualmente desde la consola, mostrando los procesos cargados y
+ * ejecutando una simulación de planificación Round Robin.
+ *
+ * Características principales:
+ * - Carga de procesos desde archivo o consola.
+ * - Muestra los procesos cargados.
+ * - Simulación de ejecución de procesos usando el algoritmo Round Robin.
+ * - Cada proceso se ejecuta por su quantum definido, incrementando su contador de programa (PC).
+ * - Si el proceso termina (PC >= CX), su estado cambia a "Terminado".
+ * - Si se agota el quantum y el proceso no termina, vuelve a la cola en estado "Listo".
+ * - La simulación finaliza cuando todos los procesos están en estado "Terminado".
+ * - Al finalizar, muestra el estado final de todos los procesos.
+ *
+ *
+ * Notas:
+ * - El quantum puede ser configurado por proceso, pero en los ejemplos se usa el mismo valor para todos.
+ * - El simulador está diseñado para ser extendido con más lógica en el futuro.
+ */
 #include "proceso.h"
 #include "cargador.h" 
 #include <iostream>
-#include <cstring>  // Para strcmp
+#include <cstring>  
 
 
 int main() {
@@ -41,7 +66,7 @@ int main() {
     // Mostrar procesos cargados
     cargador.mostrarProcesos();
     
-
+    
 
     // Inicializar simulación
     auto& procesos = cargador.getProcesos();
