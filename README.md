@@ -15,9 +15,30 @@ Simulador Round–Robin en C++ que:
 ```
 .
 ├─ Makefile
-├─ include/           # .h
-├─ src/               # .cpp
-├─ instr/             # archivos <PID>.txt si usas modo archivo
+├─ README.md
+├─ INFORME.md
+├─ procesos.txt
+├─ simulacion.log #se crea si se desea en el menú
+├─ include/
+│  ├─ cargador.h
+│  ├─ instrucciones.h
+|  ├─ logger.h
+|  ├─ planificador.h
+│  └─ proceso.h
+├─ src/
+│  ├─ main.cpp
+│  ├─ cargador.cpp
+│  ├─ instrucciones.cpp
+│  ├─ proceso.cpp
+│  └─ planificador.cpp
+├─ instr/
+│  ├─ 1.txt
+│  ├─ 2.txt
+│  ├─ 3.txt
+│  └─ [otros archivos PID].txt
+├─ capturas/         # para el informe
+│  ├─ datos1.png
+│  └─ memoriausada.png
 └─ bin/ obj/          # se crean solos con 'make'
 ```
 
@@ -68,26 +89,12 @@ JMP 0
 - **Eventos**: pila al agotar quantum, cambios de contexto
 - **Cierre**: estados finales de todos los procesos
 
-## 8) Cómo recolectar métricas para el informe
-Ejecuta:
-```bash
-lscpu > mediciones/cpuinfo.txt
-free -m > mediciones/ram.txt
-/usr/bin/time -v ./bin/simulador > mediciones/ejecucion.out 2> mediciones/ejecucion.time
-```
-- **CPU**: en `cpuinfo.txt` (modelo, núcleos).
-- **RAM**: en `ram.txt` (Mem total/disp).
-- **Memoria usada** del proceso: mira en `ejecucion.time` el campo `Maximum resident set size`.
-
-Si quieres graficar, edita `plantillas/resultados.csv` y luego usa `tools/graficar.py` (ver carpeta `entregables/`).
-
-## 9) Solución de problemas
+## 8) Solución de problemas
 - **Salida interminable**: probablemente un bucle (`JMP 0`). Cambia el programa o activa un **límite de pasos** (opcional en `planificador.cpp`).
 - **No encuentra archivos**: asegúrate de `procesos.txt` en la **raíz** y `instr/<PID>.txt` por cada proceso.
 - **Compila pero no ejecuta**: verifica permisos (`chmod +x bin/simulador`) y que los `.txt` existan.
 
 ## 10) Versión de compilador
-Incluye en tu informe la salida de:
 ```bash
 g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
 ```

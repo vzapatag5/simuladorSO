@@ -1,0 +1,77 @@
+Archivo de procesos [default: procesos.txt]: 
+→ Empezando simulacion...
+
+============================================================
+PROCESOS E INSTRUCCIONES CARGADAS
+------------------------------------------------------------
+  Proceso 1 | PC=0 | Q=2 | AX=5 | BX=3 | CX=3 | Instrucciones=3 | Estado=Listo
+  Proceso 2 | PC=0 | Q=3 | AX=2 | BX=1 | CX=7 | Instrucciones=3 | Estado=Listo
+  Proceso 3 | PC=0 | Q=5 | AX=1 | BX=2 | CX=3 | Instrucciones=4 | Estado=Listo
+============================================================
+
+============================================================
+INICIO DE PLANIFICACION (Round-Robin)
+============================================================
+Cargando Proceso 1 (PC=0, AX=5, BX=3, CX=3, Estado=Listo)
+
+............................................................
+EJECUTANDO PROCESO 1
+............................................................
+  - MUL AX, CX  | AX: 5 * CX(3) = 15  | Quantum restante: 1
+  - ADD BX, 1  | BX: 3 + 1 = 4  | Quantum restante: 0
+  ⏳ Quantum AGOTADO para Proceso 1. Se apila.
+  Pila (top→bottom): 1
+
+------------------------------------------------------------
+CAMBIO DE CONTEXTO
+------------------------------------------------------------
+  Guardando [P1]: PC=2, AX=15, BX=4, CX=3, Estado=Listo
+  Cargando  [P2]: PC=0, AX=2, BX=1, CX=7, Estado=Listo
+
+............................................................
+EJECUTANDO PROCESO 2
+............................................................
+  - SUB CX, 1  | CX: 7 - 1 = 6  | Quantum restante: 2
+  - INC CX  | CX: 6 -> 7  | Quantum restante: 1
+  - SUB CX, AX  | CX: 7 - AX(2) = 5  | Quantum restante: 0
+  ✔ Proceso 2 ha TERMINADO todas sus instrucciones.
+
+------------------------------------------------------------
+CAMBIO DE CONTEXTO
+------------------------------------------------------------
+  Guardando [P2]: PC=3, AX=2, BX=1, CX=5, Estado=Terminado
+  Cargando  [P3]: PC=0, AX=1, BX=2, CX=3, Estado=Listo
+
+............................................................
+EJECUTANDO PROCESO 3
+............................................................
+  - SUB CX, BX  | CX: 3 - BX(2) = 1  | Quantum restante: 4
+  - INC AX  | AX: 1 -> 2  | Quantum restante: 3
+  - ADD BX, 2  | BX: 2 + 2 = 4  | Quantum restante: 2
+  - NOP  | (sin efecto)  | Quantum restante: 1
+  ✔ Proceso 3 ha TERMINADO todas sus instrucciones.
+
+------------------------------------------------------------
+CAMBIO DE CONTEXTO
+------------------------------------------------------------
+  Guardando [P3]: PC=4, AX=2, BX=4, CX=1, Estado=Terminado
+  Cargando  [P1]: PC=2, AX=15, BX=4, CX=3, Estado=Listo
+
+............................................................
+EJECUTANDO PROCESO 1
+............................................................
+  - NOP  | (sin efecto)  | Quantum restante: 1
+  ✔ Proceso 1 ha TERMINADO todas sus instrucciones.
+
+============================================================
+PLANIFICACION COMPLETA
+============================================================
+
+ESTADOS FINALES DE PROCESOS
+------------------------------------------------------------
+  Proceso 1 | PC=3 | AX=15 | BX=4 | CX=3 | Estado=Terminado
+  Proceso 2 | PC=3 | AX=2 | BX=1 | CX=5 | Estado=Terminado
+  Proceso 3 | PC=4 | AX=2 | BX=4 | CX=1 | Estado=Terminado
+------------------------------------------------------------
+
+[Log guardado en simulacion.log]

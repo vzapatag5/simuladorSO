@@ -1,11 +1,11 @@
-# Informe Final – Simulador de Procesos (C/C++)
+# Informe Final – Simulador de Procesos (C++)
 
 ## Portada
 - **Curso**: Sistemas Operativos
 - **Proyecto**: Simulador Round–Robin
 - **Integrantes**: Mariana Carrasquilla, Valentina Zapata, David García
 - **Fecha**: 07/08/2025
-- **Versión compilador**: (salida de `g++ --version`)
+- **Versión compilador**: g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
 
 ---
 
@@ -35,57 +35,16 @@ main → cargador → (procesos)
 
 ---
 
-## 3. Metodología de medición
-1. **Entorno** (Linux):
-   ```bash
-   lscpu > mediciones/cpuinfo.txt
-   free -m > mediciones/ram.txt
-   /usr/bin/time -v ./bin/simulador > mediciones/ejecucion.out 2> mediciones/ejecucion.time
-   ```
-2. **Extractor**:
-   - CPU: modelo, núcleos.
-   - RAM: total y disponible.
-   - Proceso: `Maximum resident set size` (KB).
-3. **Dataset**:
-   - Completa `plantillas/resultados.csv` con columnas:
-     - `escenario, cpu_model, ram_total_mb, procesos, instrucciones_totales, tiempo_s, max_rss_kb`.
-4. **Gráficos**:
-   - Ejecuta `python3 tools/graficar.py plantillas/resultados.csv` para generar `graficos/`.
+## 3. Resultados
+![Información del procesador y RAM](capturas/datos1.png)
+![Información memoria utilizada](capturas/memoriausada.png)
+
+Se puede observar que el programa estuvo ejecutándose 38.67 segundos, de los cuales solo 0.01 sg fue el tiempo real de CPU usado por el programa y 0% de CPU debido a que la mayor parte del tiempo estaba esperando el input.
 
 ---
 
-## 4. Resultados (tablas/gráficos)
-Ejemplo de tabla (rellenar con sus mediciones):
-| Escenario | CPU                      | RAM(MB) | Proc | Instr | Tiempo(s) | MaxRSS(KB) |
-|-----------|--------------------------|---------|------|-------|-----------|------------|
-| A        | Intel i5-8250U (4c/8t)   | 7873    | 2    | 7     | 0.021     | 10240      |
-| B        | Intel i5-8250U (4c/8t)   | 7873    | 10   | 90    | 0.085     | 16384      |
-
-(Agrega aquí los gráficos PNG que genera `tools/graficar.py`).
-
----
-
-## 5. Retos y soluciones (relación con la teoría)
-1. **Gramática estricta de procesos** → *validación con regex*; evita estados inválidos.
-2. **Ubicación/duplicidad de headers** → *convención include/src*; **Responsabilidad Única**.
-3. **Entrada archivo/consola** → *interfaz CLI/menu*; **abstracción de I/O**.
-4. **Validador de instrucciones** (solo ADD/SUB/MUL/INC/JMP/NOP) → *control del conjunto de instrucciones*; evita comportamiento indefinido.
-5. **Quantum off-by-one** → impresión del **quantum restante tras ejecución**; *precisión temporal*.
-6. **Cambios de contexto y pila** → *simulación de conmutación y cola/stack*; **Round–Robin** y **preempción**.
-7. **Logs** → *observabilidad*; depuración y reproducibilidad.
-8. **Prevención de bucles infinitos** (opcional) → *límite de pasos*; trade-off entre realismo y seguridad en demos.
-
----
-
-## 6. Conclusiones
+## 4. Conclusiones
 - La simulación refleja la **justicia temporal** de Round–Robin y el impacto del **Quantum** en los cambios de contexto.
 - La instrumentación permitió estimar el **uso de memoria** y el costo de impresión/logs.
 - La validación estricta de instrucciones reduce errores y facilita el análisis de resultados.
 - Trabajos futuros: más instrucciones, estados adicionales (“Bloqueado/IO”), **prioridades** y **estadísticas** (turnaround, waiting, response time).
-
----
-
-## 7. Anexos
-- **Versión del compilador**: (pegar salida de `g++ --version`).
-- **Comandos de medición** y ejemplos de salida.
-- **Fragmentos de log** representativos.
