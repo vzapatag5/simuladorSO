@@ -1,3 +1,29 @@
+
+/**
+ * @class TeeBuf
+ * @brief Un buffer de flujo que escribe la salida en dos buffers de flujo separados simultáneamente.
+ *
+ * Esta clase hereda de std::streambuf y permite duplicar la salida en dos buffers de flujo diferentes.
+ * Es útil para registrar logs o redirigir la salida a múltiples destinos, como escribir en un archivo
+ * y en la consola al mismo tiempo.
+ *
+ * @note Esta clase no toma posesión de los buffers de flujo proporcionados.
+ *
+ * @param sb1 Puntero al primer buffer de flujo.
+ * @param sb2 Puntero al segundo buffer de flujo.
+ *
+ * @fn TeeBuf::TeeBuf(std::streambuf* sb1, std::streambuf* sb2)
+ * @brief Construye un TeeBuf con dos buffers de destino.
+ *
+ * @fn TeeBuf::overflow(int ch)
+ * @brief Escribe un carácter en ambos buffers de flujo.
+ * @param ch El carácter a escribir.
+ * @return El carácter escrito en caso de éxito, o EOF en caso de error.
+ *
+ * @fn TeeBuf::sync()
+ * @brief Sincroniza ambos buffers de flujo.
+ * @return 0 en caso de éxito, -1 en caso de error.
+ */
 #ifndef LOGGER_TEEBUF_H
 #define LOGGER_TEEBUF_H
 

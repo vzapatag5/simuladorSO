@@ -1,8 +1,33 @@
+
+/**
+ * @file cargador.cpp
+ * @brief Implementación del cargador de procesos para el simulador de sistema operativo.
+ *
+ * Este archivo contiene la lógica para cargar procesos desde un archivo o desde la consola,
+ * validando la sintaxis de cada línea según la gramática definida:
+ *   PID: <num> [, AX=<num>][, BX=<num>][, CX=<num>] , Quantum=<num>
+ * 
+ * Funcionalidades principales:
+ * - Validación y parseo de líneas de procesos usando expresiones regulares.
+ * - Carga de procesos desde archivo o entrada estándar.
+ * - Manejo de errores de sintaxis y reporte de líneas inválidas.
+ * - Almacenamiento de los procesos cargados en un vector.
+ *
+ * Clases y funciones:
+ * - CargadorProcesos: Clase principal para la carga y gestión de procesos.
+ *   - bool cargarProcesos(const std::string& filename): Carga procesos desde un archivo.
+ *   - bool cargarProcesosDesdeConsola(): Carga procesos desde la entrada estándar.
+ *   - const std::vector<Proceso>& getProcesos() const: Acceso a los procesos cargados.
+ * - parseLineaProceso: Función auxiliar para parsear y validar una línea de proceso.
+ *
+ * @author
+ * @date
+ */
 #include "cargador.h"
 #include <fstream>
 #include <iostream>
 #include <regex>
-#include <cstring> // strcpy
+#include <cstring> 
 
 // Gramática: PID: <num> [, AX=<num>][, BX=<num>][, CX=<num>] , Quantum=<num>
 static const std::regex kProcRegex(

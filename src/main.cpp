@@ -1,11 +1,35 @@
-// src/main.cpp
+
+/**
+ * @file main.cpp
+ * @brief Simulador de procesos con planificación Round-Robin.
+ *
+ * Este programa permite simular la ejecución de procesos utilizando el algoritmo de planificación Round-Robin.
+ * Ofrece dos modos de entrada para los procesos e instrucciones: desde archivos o desde la consola.
+ * Además, permite la opción de exportar el seguimiento de la simulación a un archivo de log.
+ *
+ * Funcionalidades principales:
+ * - Menú interactivo para seleccionar el modo de entrada y la opción de logging.
+ * - Carga de procesos e instrucciones desde archivo o consola.
+ * - Ejecución de la simulación con planificación Round-Robin.
+ * - Exportación opcional de la salida y errores a un archivo de log.
+ * - Permite ejecutar múltiples simulaciones en una misma sesión.
+ *
+ * Dependencias:
+ * - cargador.h: Definición de CargadorProcesos para cargar procesos.
+ * - instrucciones.h: Definición de CargadorInstrucciones para cargar instrucciones.
+ * - planificador.h: Definición de PlanificadorRoundRobin para la simulación.
+ * - logger.h: Definición de TeeBuf para duplicar la salida a archivo.
+ *
+ * @author
+ * @date
+ */
 #include <iostream>
 #include <fstream>
 #include <string>
 #include "cargador.h"
 #include "instrucciones.h"
 #include "planificador.h"
-#include "logger.h"  // <-- NUEVO
+#include "logger.h"  
 
 static void sep(char ch='=', int n=60){ for(int i=0;i<n;++i) std::cout<<ch; std::cout<<"\n"; }
 
@@ -24,7 +48,7 @@ int main() {
         int op = menu();
         if (op == 3) { std::cout << "Saliendo...\n"; return 0; }
 
-        // --- ACTIVAR LOG OPCIONAL ---
+        // --- ACTIVAR LOG ---
         bool usarLog = false;
         std::cout << "¿Exportar el seguimiento a .log? (s/n): ";
         std::string r; std::getline(std::cin, r);
@@ -115,7 +139,6 @@ int main() {
         PlanificadorRoundRobin rr;
         rr.schedule(procesos, ci.getInstrucciones());
 
-        // --- RESTAURAR STDOUT/STDERR ---
         if (usarLog) {
             std::cout << "\n[Log guardado en " << logName << "]\n";
             std::cout.rdbuf(oldCout);
@@ -123,7 +146,6 @@ int main() {
             delete teeOut; delete teeErr;
             log.close();
         }
-        // --- FIN RESTAURAR ---
 
         std::cout << "\n¿Desea ejecutar otra simulacion? (s/n): ";
         std::string again; std::getline(std::cin, again);

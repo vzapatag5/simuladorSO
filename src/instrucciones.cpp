@@ -1,3 +1,33 @@
+
+/**
+ * @file instrucciones.cpp
+ * @brief Implementación de la clase CargadorInstrucciones y funciones auxiliares para la validación y carga de instrucciones de procesos.
+ *
+ * Este archivo contiene funciones para:
+ * - Eliminar espacios en blanco y convertir cadenas a mayúsculas.
+ * - Validar instrucciones de un lenguaje ensamblador simple (NOP, INC, JMP, ADD, SUB, MUL).
+ * - Cargar instrucciones desde archivos o desde la consola para una lista de procesos.
+ *
+ * Funciones auxiliares:
+ * - trim: Elimina espacios en blanco al inicio y final de una cadena.
+ * - upper: Convierte una cadena a mayúsculas.
+ * - isReg: Verifica si una cadena representa un registro válido (AX, BX, CX).
+ * - parseIntSafe: Intenta convertir una cadena a entero de forma segura.
+ * - validarInstruccion: Valida la sintaxis y semántica de una instrucción individual.
+ *
+ * Métodos de CargadorInstrucciones:
+ * - cargarInstrucciones: Carga instrucciones desde archivos de texto, uno por proceso.
+ * - cargarInstruccionesDesdeConsola: Permite ingresar instrucciones manualmente por consola.
+ * - getInstrucciones: Devuelve las instrucciones cargadas para todos los procesos.
+ *
+ * Las instrucciones válidas son:
+ * - NOP: Sin operandos.
+ * - INC <REG>: Incrementa el registro especificado.
+ * - JMP <INT>: Salta a la línea indicada.
+ * - ADD|SUB|MUL <REG>, <REG|INT>: Operaciones aritméticas entre registros o enteros.
+ *
+ * Se reportan errores detallados en caso de instrucciones inválidas.
+ */
 #include "instrucciones.h"
 #include <fstream>
 #include <iostream>
@@ -27,11 +57,6 @@ static bool parseIntSafe(const std::string& s, int& out) {
     } catch (...) { return false; }
 }
 
-/*
- * Valida UNA línea de instrucción.
- * Devuelve true si es exactamente una de: ADD/SUB/MUL <REG>, <REG|INT> | INC <REG> | JMP <INT> | NOP
- * También normaliza espacios y mayúsculas para facilitar debug (pero mantenemos la línea original).
- */
 static bool validarInstruccion(const std::string& original, std::string& error) {
     error.clear();
     std::string raw = trim(original);
@@ -39,7 +64,6 @@ static bool validarInstruccion(const std::string& original, std::string& error) 
 
     std::string s = upper(raw);
 
-    // Separar op y resto
     std::string op, rest;
     {
         std::istringstream iss(s);
@@ -135,8 +159,6 @@ bool CargadorInstrucciones::cargarInstruccionesDesdeConsola(const std::vector<Pr
             if (!validarInstruccion(line, err)) {
                 std::cerr << "  Error (linea " << lineNum << "): " << err
                           << " | Texto: " << line << "\n";
-                // si quieres permitir reintentar la misma linea, comenta el return y continua;
-                // aquí abortamos para mantenerlo estricto:
                 return false;
             }
             lista.push_back(line);

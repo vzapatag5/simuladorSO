@@ -1,4 +1,5 @@
 SUB CX, BX
 INC AX
 ADD BX, 2
+JMP 4
 NOP
