@@ -1,0 +1,3 @@
+MUL AX, CX
+ADD BX, 1
+NOP
