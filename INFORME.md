@@ -24,7 +24,7 @@
 - `instrucciones.*`: carga/valida instrucciones; **validador estricto** (solo ADD/SUB/MUL/INC/JMP/NOP).
 - `planificador.*`: Round–Robin, impresión paso a paso, pila, cambios de contexto.
 - `main.cpp`: menú, orquestación.
-- **Logger opcional**: duplicación de stdout/stderr a `.log`.
+- **Logger**: duplicación de stdout/stderr a `.log`.
 
 Diagrama (alto nivel):
 ```
