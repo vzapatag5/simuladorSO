@@ -1,0 +1,7 @@
+# Instrucciones para el proceso PID 1
+ADD AX, BX
+INC AX
+SUB BX, 1
+MUL AX, 2
+NOP
+INC CX

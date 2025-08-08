@@ -1,0 +1,6 @@
+# Archivo principal de procesos siguiendo la sintaxis del proyecto
+# Sintaxis: PID: <numero> [, <registro>=<numero>]* [, Quantum=<numero>]
+
+PID: 1, AX=5, BX=3, CX=2, Quantum=3
+PID: 2, AX=10, BX=1, CX=4, Quantum=2
+PID: 3, AX=0, BX=7, CX=3, Quantum=4
