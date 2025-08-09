@@ -23,7 +23,6 @@ Simulador Round–Robin en C++ que:
 .
 ├─ Makefile
 ├─ README.md
-├─ INFORME.md
 ├─ procesos.txt
 ├─ simulacion.log #se crea si se desea en el menú
 ├─ include/
