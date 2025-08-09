@@ -1,10 +1,17 @@
 # Simulador de Procesos – README
 
+## Portada
+- **Curso**: Sistemas Operativos
+- **Proyecto**: Simulador Round–Robin
+- **Integrantes**: Mariana Carrasquilla, Valentina Zapata, David García
+- **Fecha**: 07/08/2025
+- **Versión compilador**: g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+
 ## 1) Descripción breve
 Simulador Round–Robin en C++ que:
 - Lee **procesos** e **instrucciones** desde **archivo** (procesos.txt + instr/<PID>.txt) **o** desde **consola** (menú).
 - Ejecuta instrucciones **ADD, SUB, MUL, INC, JMP, NOP** con **quantum** por proceso.
-- Muestra en terminal: carga inicial (PID, PC, Quantum, AX, BX, CX), ejecución paso a paso, quantum restante, pila al agotar quantum, cambios de contexto y estados finales.
+- Muestra en terminal: carga inicial (PID, PC, Quantum, AX, BX, CX), ejecución paso a paso, quantum restante, encola al agotar quantum, cambios de contexto y estados finales.
 - Opcional: exporta todo el seguimiento a un **.log** (desde el menú).
 
 ## 2) Requisitos
@@ -29,7 +36,6 @@ Simulador Round–Robin en C++ que:
 │  ├─ main.cpp
 │  ├─ cargador.cpp
 │  ├─ instrucciones.cpp
-│  ├─ proceso.cpp
 │  └─ planificador.cpp
 ├─ instr/
 │  ├─ 1.txt
@@ -86,7 +92,7 @@ JMP 0
 ## 7) Parámetros visibles al ejecutar
 - **Carga inicial**: `PID, PC, Quantum, AX, BX, CX, #Instrucciones, Estado`
 - **Paso a paso**: `Instr[i] <OP ...> | efecto en registros | Quantum restante`
-- **Eventos**: pila al agotar quantum, cambios de contexto
+- **Eventos**: encola al agotar quantum, cambios de contexto
 - **Cierre**: estados finales de todos los procesos
 
 ## 8) Solución de problemas

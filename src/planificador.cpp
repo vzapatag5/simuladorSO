@@ -73,7 +73,7 @@ static bool parseIntSafe(const std::string& s, int& out) {
     } catch (...) { return false; }
 }
 
-// Imprime el contenido de la cola de listos (visual)
+// Imprime el contenido de la cola de listos
 static void printReadyQueue(const std::queue<int>& q, const std::vector<Proceso>& procesos) {
     std::queue<int> tmp = q;
     std::cout << "  COLA (front→back): ";
